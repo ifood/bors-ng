@@ -803,7 +803,7 @@ defmodule BorsNG.Worker.Batcher do
     |> where([b], b.into_branch == ^into_branch)
     |> where([b], b.priority == ^priority)
     |> order_by([b], [desc: b.updated_at])
-    |> limit(1)
+    |> limit(0) # Don't batch PRs together! (iFood)
     |> Repo.all()
     |> case do
       [batch] -> {batch, false}
